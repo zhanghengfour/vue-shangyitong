@@ -2,8 +2,8 @@
     <div class="top">
         <div class="content">
             <div class="left">
-                <img class="left-img" src="../../assets/images/logo.png" alt="">
-                <p class="left-p">尚医通 预约挂号统一平台</p>
+                <img src="../../assets/images/logo.png" alt="">
+                <p>尚医通 预约挂号统一平台</p>
             </div>
             <div class="right">
                 <p class="help">帮助中心</p>
@@ -17,7 +17,7 @@
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .top {
     position: fixed;
     z-index: 999;
@@ -40,13 +40,13 @@
             justify-content: center;
             align-items: center;
 
-            .left-img {
+            img {
                 width: 50px;
                 height: 50px;
                 margin-right: 10px;
             }
 
-            .left-p {
+            p {
                 font-size: 20px;
                 color: #55a6fe;
             }
