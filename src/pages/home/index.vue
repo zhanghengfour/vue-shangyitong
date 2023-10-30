@@ -48,14 +48,16 @@ import Card from "./card/index.vue";
 import {onMounted, ref} from 'vue';
 import {reqHospital} from '@/api/home';
 
+import type {Content, HospitalResponseData} from '@/api/home/type.ts'
+
 // 分页器页码
 let pageNo = ref<number>(1);
 // 一页展示多少条数据
 let pageSize = ref<number>(10);
 //  存储已有的医院的数据
-let hasHospitalArr = ref([]);
+let hasHospitalArr = ref<Content>([]);
 //存储医院总个数
-let total = ref(0);
+let total = ref<number>(0);
 
 // 组件挂载完毕之后:发送一次请求
 onMounted(() => {
@@ -65,7 +67,7 @@ onMounted(() => {
 // 获取已有医院的数据
 const getHospitalInfo = async () => {
     //获取医院的数据,默认获取第一页,十个数据
-    let result: any = await reqHospital(pageNo.value, pageSize.value);
+    let result: HospitalResponseData = await reqHospital(pageNo.value, pageSize.value);
     if (result.code == 200) {
         // 存储已有医院的数据
         hasHospitalArr.value = result.data.content;
