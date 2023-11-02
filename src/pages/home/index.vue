@@ -7,12 +7,13 @@
         <!--        展示医院结构-->
         <el-row gutter="20">
             <el-col :span="18">
-                <Level></Level>
-                <Region></Region>
+                <Level @getLevel="getLevel"></Level>
+                <Region @getRegion="getRegion"></Region>
                 <!--                展示医院信息-->
-                <div class="hospital">
+                <div class="hospital" v-if="hasHospitalArr.length>0">
                     <Card class="card" v-for='(item,index) in hasHospitalArr' :key="index" :hospitalInfo="item"></Card>
                 </div>
+                <el-empty v-else description="没有数据"/>
                 <!--分页器-->
 
                 <div class="demo-pagination-block pagination">
@@ -49,6 +50,9 @@ import {onMounted, ref} from 'vue';
 import {reqHospital} from '@/api/home';
 
 import type {Content, HospitalResponseData} from '@/api/home/type.ts'
+import level from "../../../file/syt/syt/src/pages/home/level/index.vue";
+import region from "../../../file/syt/syt/src/pages/home/region/index.vue";
+import {componentSizeMap} from "element-plus";
 
 // 分页器页码
 let pageNo = ref<number>(1);
@@ -58,22 +62,38 @@ let pageSize = ref<number>(10);
 let hasHospitalArr = ref<Content>([]);
 //存储医院总个数
 let total = ref<number>(0);
+// 存储医院等级的数据
+let hostype = ref<string>('');
+// 存储医院地区的数据
+let districtCode = ref<string>('');
 
 // 组件挂载完毕之后:发送一次请求
 onMounted(() => {
     getHospitalInfo();
 });
 
+// 获取子组件自定义事件:获取儿子给父组件传递过来的等级参数
+const getRegion = (region: string) => {
+    console.log(region)
+    districtCode.value = region;
+    getHospitalInfo();
+}
+
+// 获取子组件自定义事件:获取儿子给父组件传递过来的等级参数
+const getLevel = (level: string) => {
+    hostype.value = level;
+    getHospitalInfo();
+}
+
 // 获取已有医院的数据
 const getHospitalInfo = async () => {
     //获取医院的数据,默认获取第一页,十个数据
-    let result: HospitalResponseData = await reqHospital(pageNo.value, pageSize.value);
+    let result: HospitalResponseData = await reqHospital(pageNo.value, pageSize.value, hostype.value, districtCode.value);
     if (result.code == 200) {
         // 存储已有医院的数据
         hasHospitalArr.value = result.data.content;
         total.value = result.data.totalElements;
     }
-    console.log(result)
 }
 
 // 分页器页面切换,页码发生变化之后回调
