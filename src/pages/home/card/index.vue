@@ -1,5 +1,5 @@
 <template>
-    <el-card class="box-card" shadow="hover">
+    <el-card class="box-card" shadow="hover" @click="goDetail">
         <!--        <div v-for="o in 4" :key="o" class="text item">{{ 'List item ' + o }}</div>-->
         <div class="content">
             <div class="left">
@@ -33,7 +33,19 @@
 </template>
 
 <script setup lang="ts">
-defineProps(['hospitalInfo']);
+import {useRouter} from "vue-router";
+
+defineProps(['hospitalInfo'])
+
+// 定义路由变量
+let $router = useRouter();
+
+const goDetail = () => {
+    //进行路由跳转
+    $router.push({
+        path: 'hospital'
+    })
+}
 
 </script>
 

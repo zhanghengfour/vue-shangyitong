@@ -32,6 +32,7 @@
             </el-col>
 
             <el-col :span="6">
+                <Tip/>
             </el-col>
         </el-row>
 
@@ -48,6 +49,8 @@ import Card from "./card/index.vue";
 // 引入组合式API函数
 import {onMounted, ref} from 'vue';
 import {reqHospital} from '@/api/home';
+// 引入右侧提示组件
+import Tip from './tip/index.vue'
 
 import type {Content, HospitalResponseData} from '@/api/home/type.ts'
 import level from "../../../file/syt/syt/src/pages/home/level/index.vue";

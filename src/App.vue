@@ -8,6 +8,8 @@
         </div>
         <!--展示顶部组件-->
         <HospitalBottom/>
+        <!--   登录组件    -->
+        <Login/>
     </div>
 </template>
 
